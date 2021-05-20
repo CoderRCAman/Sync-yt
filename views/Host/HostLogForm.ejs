@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="Description" content="Enter your description here"/> 
+<link rel="stylesheet" href="/CSS/mdb.min.css"> 
+<link rel="stylesheet" href="/CSS/form.css">
+<!-- MDB -->
+
+<script>
+    var serverId = Math.random().toString(36).substring(7); 
+    console.log(serverId) ;
+    //document.getElementById('myInput').appendChild(button);
+    function setValue () {
+        document.getElementById('server').value = serverId ;
+    }
+</script>
+<title>UserLog</title>
+</head>
+<body class='bg_image'>
+    <div class="container "> 
+        <div class="row ">
+            <div class="col-md-4"></div>   
+            <div class="col-md-4 form">  
+                <h3 style="text-align: center; padding: 5px;font-weight: 600; margin:0;">CREATE SERVER</h3>
+              <h4 style="color:red"><%= error %></h4>
+                <form method="post">
+                    <div id='login' class="form-group">
+                      <label for="floatingInput">User Name</label>
+                      <input type="text" class="form-control" id="hostname" name="username" aria-describedby="emailHelp" required>
+                      <label for="floatingInput">Password</label>
+                      <input type="password" class="form-control" id="password" name="password" aria-describedby="emailHelp" required>
+                       <input type="hidden" id='server' name ='serverId' >  
+                    </div>
+                   
+                    <button type="submit" onclick="setValue()" class="btn btn-primary">Create Server</button>
+                    <h3>Don't have an Account?</h3> 
+                    <a href="/signup"
+                    onclick="location.href=this.href+'?host='+true;return false;"> <button type="submit" class="btn btn-primary signup">Signup</button></a>
+                   
+                  </form>  
+                
+            </div>
+            <div class="col-md-4 form ">
+               
+            </div>
+        </div>
+    </div> 
+   
+    <script>
+
+    </script>
+    <script type="text/javascript" src="../JS/mdb.min.js"></script>  
+
+</body>
+</html>

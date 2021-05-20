@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link rel="stylesheet" href="../CSS/mdb.min.css">
+    <link rel="stylesheet" href="../CSS/view.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt&display=swap" rel="stylesheet">
+    <style>
+      .hide{
+        display: none;
+      }
+    </style>
+    <title>SyncYT</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.2/qs.min.js"
+      integrity="sha256-TDxXjkAUay70ae/QJBEpGKkpVslXaHHayklIVglFRT4="
+      crossorigin="anonymous"
+    ></script> 
+    <script>
+        var {username,serverId,videoId } = Qs.parse(location.search, {
+          ignoreQueryPrefix: true
+        }); 
+  </script>
+</head>
+<body>
+    <div class="container" style="margin-bottom: 10px;"> 
+        <nav class="navbar navbar-light ">
+            <form class="container-fluid justify-content-start d-flex justify-content-end"> 
+              <button id= 'stream' class="btn  btn-outline-danger btn-outline-danger1 me-2" type="button">Streaming </button>
+              <button id= 'disconnect' class="btn btn-outline-secondary me-2" type="button">Disconnect </button>
+            </form>
+          </nav>   
+    </div> 
+   <!-- Video Player--> 
+            <!-- 1. The <iframe> (and video player) will replace this <div> tag. --> 
+            
+          <div class="container">  
+            <div style="margin-bottom:10px;">
+            <div id = "profile_icon" class="profile_icon">   </div>
+              <span id="profile_name" class="profile_name"></span>
+          </div>
+          
+          
+            <div class="videocontainer">
+              <div class="row no-gutters">
+                <div class="col-sm-7 border-right">
+                  <!-- Video Player--> 
+                  <div class= 'responsive-youtube center'> <div id="player" class="iframe"></div> </div>
+                </div> 
+                <div class="col-sm-5 border-left " >
+                  <!--To Do For Chat --> 
+                  <div>
+                    <div class="tray"> 
+                      <!-- Chat Info Icons  -->
+                      <div class="d-flex "> 
+                        <div id='chat' class="tray_section " >
+                          <span  class="block d-flex mx-4 iconwarper ">
+                            <i class="material-icons">chat</i>
+                            <p class="icondes">Chat</p>
+                          </span>
+                        </div>
+                        <div id='status' class=" tray_section" > 
+                          <span class="d-flex mx-4  iconwarper">
+                            <i class="material-icons">people</i>
+                           <p class="icondes">People</p>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                       <!-- -----  -->
+                       <!--Chatbox  -->  
+                       <div id='chat-panel-id' class="chatboxWraper"></div>
+                        <div id='status-panel-id' class="statusboxWraper hide"></div>
+                       <!-- ----  -->
+      
+                       <!-- ChatInput  -->
+                       <div class="inputWarper">
+                          <input id='msg-form' type="text"placeholder='Enter text'>
+                          <i id='submit'class="material-icons send" >send</i>
+                       </div>
+                       <!-- ----  -->
+                      </div>
+              </div>
+                 
+               
+              </div> 
+            </div>
+            </div> 
+          </div>
+            
+    <script src="/socket.io/socket.io.js"></script> 
+    <script src="../JS/playerEmbed.js"></script> 
+    <script src="../JS/user.js"></script>
+</body>
+</html>

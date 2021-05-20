@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="Description" content="Enter your description here"/>
+<!-- MDB -->
+<link rel="stylesheet" href="../CSS/mdb.min.css">
+<link rel="stylesheet" href="../CSS/form.css">
+<title>UserLog</title>
+</head>
+<body class='bg_image'>
+    <div class="container ">
+        <div  class="row d-flex justify-content-center  ">
+            <div class="col-md-4"></div>
+            <div class="col-md-4 form">  
+              <h3 style="text-align: center; padding: 5px;font-weight: 600; margin:0;">JOIN SERVER</h3>
+              <h4 style="color:red"><%= error %></h4>
+                <form method="POST" >
+                    <div class="form-group">
+                      <label for="InputUserName" >User Name</label>
+                      <input type="text" class="form-control" id="username" name='username'aria-describedby="emailHelp" required>
+                      <input type ='hidden' name ='host' value = 'false'>  
+                    </div>
+                    <div class="form-group">
+                      <label for="InputUserName" >Password</label>
+                      <input type="password" class="form-control" id="username" name='password'aria-describedby="emailHelp" required>
+                    </div>
+                    <div class="form-group " >
+                      <label for="InputServerId" >Server Id</label>
+                      <input type="text" class="form-control" id="serverId" name='serverId' required>
+                    </div>
+                   
+                    <button type="submit" class="btn btn-primary">Join Server</button>
+                    <h3>Don't have an Account?</h3> 
+                    <a href="/signup"
+                    onclick="location.href=this.href+'?host='+false;return false;"> <button type="submit" class="btn btn-primary signup">Signup</button></a>
+                  </form>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div> 
+   
+    
+    <script type="text/javascript" src="../JS/mdb.min.js"></script>
+</body>
+</html>

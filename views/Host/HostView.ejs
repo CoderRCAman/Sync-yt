@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link rel="stylesheet" href="../CSS/mdb.min.css">
+    <link rel="stylesheet" href="../CSS/view.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt&display=swap" rel="stylesheet">
+    <script src="../JS/mdb.min.js"></script>
+    <title>SyncYT</title> 
+    <style>
+      .hide{
+        display: none;
+      }
+    </style>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.2/qs.min.js"
+      integrity="sha256-TDxXjkAUay70ae/QJBEpGKkpVslXaHHayklIVglFRT4="
+      crossorigin="anonymous"
+    ></script> 
+    <script src="/socket.io/socket.io.js"></script> 
+    <script>
+      var {username,serverId } = Qs.parse(location.search, {
+        ignoreQueryPrefix: true
+      }); 
+    </script>
+    <script>
+      function copyTextToClip() {
+        /* Get the text field */
+        var copyText = document.getElementById("myInput");
+
+        /* Select the text field */
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+         /* Copy the text inside the text field */
+          document.execCommand("copy");
+
+          /* Alert the copied text */
+         alert("Copied the text: " + copyText.value);
+}
+    </script>
+</head>
+<body bgcolor="	#E6E6FA">
+    <div class="container"> 
+      <!-- Main navbar -->
+        <nav class="navbar navbar-light ">
+            <form class="container-fluid justify-content-start d-flex justify-content-end">
+              <button class="btn btn-outline-danger btn-outline-danger1 me-2" type="button" id="showBtn">Streaming</button>
+              <button id='disconnect' class="btn btn-outline-secondary me-2" type="button">Disconnect </button>
+            </form>
+          </nav> 
+       <!-- ----     -->
+
+          <!-- Search Video URL section -->
+          <nav class="navbar "> 
+            <div class="container-fluid d-flex justify-content-center">
+              <form class="d-flex input-group w-auto" id='videoUrl'>
+                <input 
+                  id= 'videoIdTag'
+                  type="text"
+                  class="form-control"
+                  placeholder="Search Video"
+                  aria-label="Search"
+                />
+                <button
+                  class="btn btn-outline-primary"
+                  type="submit"
+                  data-mdb-ripple-color="dark"
+                >
+                  Search
+                </button>
+              </form>
+            </div>
+          </nav>
+          <!-- ---- -->
+
+            <!-- Copy Server ID -->
+          <nav class="navbar d-flex justify-content-between">    
+             <!-- User Profile -->
+            <div style="margin-bottom:10px;">
+              <div id = "profile_icon" class="profile_icon">   </div>
+                <span id="profile_name" class="profile_name"></span>
+            </div> 
+             <!-- ---- --> 
+          <div align=center class ='d-flex input-group w-auto' style="{margin-left:5px;}">
+            <!-- The text field -->
+            <input type="text" value="Hello World" id="myInput" class="form-control">
+            <!-- The button used to copy the text -->
+            <button  onclick="copyTextToClip()"class="btn btn-info btn-rounded">Copy</button>   
+          </div>
+        </nav> 
+         <!-- ---- -->
+
+        <!-- Video Container and Chat -->
+       
+       <div class="videocontainer">
+        <div class="row no-gutters">
+           <!-- Video Player--> 
+          <div class="col-sm-7 border-right">
+            <div id = "playerID" class= 'responsive-youtube center'> <div id="player" class="iframe"></div> </div>
+          </div> 
+          <!-- ----  -->
+          <!-- Chat Box   -->
+       
+          <div class="col-sm-5" >  
+            <div>
+              <div class="tray"> 
+                <!-- Chat Info Icons  -->
+                <div class="d-flex "> 
+                  <div id='chat' class="tray_section " >
+                    <span  class="block d-flex mx-4 iconwarper ">
+                      <i class="material-icons">chat</i>
+                     <p class="icondes">Chat</p> 
+                    </span>
+                  </div>
+                  <div id='status' class="tray_section" > 
+                    <span class="d-flex mx-4  iconwarper">
+                      <i class="material-icons">people</i>
+                     <p class="icondes">People</p>
+                    </span>
+                  </div>
+                </div>
+              </div>
+                 <!-- -----  -->
+                 <!--Chatbox  -->  
+                 <div id='chat-panel-id' class="chatboxWraper "></div> 
+                 <div id='status-panel-id' class="statusboxWraper hide">
+                    <p class="statuswraper">
+                      <img src="../img/circle-16.png"class='image' > 
+                      <span class="userInfo">DADA</span>
+                    </p>
+                </div>
+                 <!-- ----  -->
+
+                 <!-- ChatInput  -->
+                 <div class="inputWarper">
+                    <input id='msg-form' type="text"placeholder='Enter text'>
+                    <i id='submit'class="material-icons send" >send</i>
+                 </div>
+                 <!-- ----  -->
+                </div>
+              
+            <!--To Do For Chat --> 
+            <!-- <div class=" tray text-white">Chat Room</div>
+            <div class="chat-pannel" id="chat-panel-id"></div> 
+            <div class="message-box" >
+                 <input id="msg-form" class="text" type="text" placeholder="Send Text ....">
+                  <button id="submit" class="btn btn-outline-success send"><i class="material-icons">send</i></button>    
+            </div>
+        </div>
+          
+        <div class="col-sm-2">
+          <!--To do for Connected Users--> 
+          <!-- <div class=" tray text-white">Connected </div>
+          <div id="connected" class="list-group chat-pannel">
+           
+            <span id = "active-user" class="list-group-item list-group-item-action peop-on">
+             NONE CONNECTED 
+            </span>
+            
+           
+          </div> -->    
+        </div> 
+        </div>
+       </div>
+       <!-- -----  -->
+      </div> 
+     
+ <script src="/JS/playerEmbed.js"></script>   
+ <script src="/JS/host.js"></script>     
+
+</body>
+</html>

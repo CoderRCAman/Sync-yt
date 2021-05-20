@@ -1,0 +1,27 @@
+body,
+html {
+  height: 100%;
+  background-color: #212121;
+  color: white;
+}
+.form {
+  margin-top: 150px;
+}
+.btn {
+  margin-top: 10px;
+  margin-left: 100px;
+}
+.label {
+  margin-left: 40px;
+}
+.make_center {
+  padding-top: 23%;
+}
+
+.signup {
+  color: white;
+  margin: 0;
+}
+a {
+  color: white;
+}

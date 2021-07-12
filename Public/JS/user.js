@@ -29,7 +29,7 @@ const disconnectBtn = document.getElementById('disconnect');
 disconnectBtn.addEventListener('click', (e) => {
     socket.emit('disconnectUser', { 'username': username, 'serverId': serverId });
     sessionStorage.clear();
-    window.location.href = '/'
+    window.location.href = '/logout'
 })
 //get video Id from session storage 
 videoid = sessionStorage.getItem('videoId') ? sessionStorage.getItem('videoId') : videoId;

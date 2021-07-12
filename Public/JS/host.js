@@ -50,7 +50,7 @@ disconnectBtn.addEventListener('click', (e) => {
     console.log('okc')
     socket.emit('disconnectUser', { 'username': username, 'serverId': serverId });
     sessionStorage.clear();
-    window.location.href = '/'
+    window.location.href = '/logout'
 })
 
 

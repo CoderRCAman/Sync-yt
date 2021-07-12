@@ -6,9 +6,23 @@ const querystring = require('querystring');
 const { render } = require('ejs');
 const { log } = require('console');
 
+//middlewares
+isAuthenticated = (req, res, next) => {
+    const cookie = req.cookies.authenticated;
+    if (cookie) {
+        return next();
+    }
+    return res.redirect('/')
+}
+
 //GET Routes
 Router.get('/', (req, res) => {
     res.render('index');
+})
+
+Router.get('/logout', isAuthenticated, (req, res) => {
+    res.clearCookie('authenticated');
+    res.redirect('/');
 })
 //load host 
 Router.get('/loadhost', (req, res) => {
@@ -19,12 +33,12 @@ Router.get('/loaduser', (req, res) => {
     res.render('User/UserLogForm', { error: '' });
 })
 
-Router.get('/hostview', (req, res) => {
-    res.render('Host/HostView')
+Router.get('/hostview', isAuthenticated, (req, res) => {
+    return res.render('Host/HostView')
 })
 
-Router.get('/userview', (req, res) => {
-    res.render('User/UserView')
+Router.get('/userview', isAuthenticated, (req, res) => {
+    return res.render('User/UserView')
 })
 
 Router.get('/signup', (req, res) => {
@@ -64,7 +78,7 @@ Router.post('/loadhost', async (req, res) => {
             //     'videoId': 'M7lc1UVf-VE',
             //     'host': true
             // }).save(); 
-            validate.save()
+            await validate.save()
                 .then((user) => { console.log(user) })
                 .catch(err => { console.log(err); })
             new Videoid({
@@ -77,8 +91,9 @@ Router.post('/loadhost', async (req, res) => {
                 "serverId": serverId,
                 "videoId": 'M7lc1UVf-VE'
             })
-
-            res.redirect('/hostview/?' + query);
+            res.cookie('authenticated', true, { maxAge: '40000000' });
+            console.log(res.cookie);
+            return res.redirect('/hostview/?' + query);
         }
     } catch (error) {
         console.log(error);
@@ -113,8 +128,8 @@ Router.post('/loaduser', async (req, res) => {
                 "serverId": serverId,
                 "videoId": newVideoSouce.videoId
             })
-
-            res.redirect('/userview/?' + query);
+            res.cookie('authenticated', true, { maxAge: '40000000' });
+            return res.redirect('/userview/?' + query);
         }
     } catch (error) {
         console.log(error);

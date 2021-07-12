@@ -9,12 +9,14 @@ const io = socketio(server);
 const mongoose = require('mongoose');
 const Routes = require('./Routes/routes');
 var bodyParser = require('body-parser')
+var cookieParser = require('cookie-parser')
 
 //set view engine 
 app.set('view engine', 'ejs');
 //make static folder  
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser())
 app.use(express.static(path.join(__dirname, './Public')))
 //set our routes 
 app.use('/', Routes);

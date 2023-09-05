@@ -2,48 +2,172 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <title>SyncYT</title>
     <!-- MDB icon -->
     <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.11.2/css/all.css"
+    />
     <!-- Google Fonts Roboto -->
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
-    /> 
-   
+    />
+
     <!-- MDB -->
-    <link rel="stylesheet" href="CSS/mdb.min.css" />  
-    <link rel="stylesheet" href="CSS/index.css">
+    <link rel="stylesheet" href="CSS/mdb.min.css" />
+    <link rel="stylesheet" href="CSS/index.css" />
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <style>
+      :root {
+        --g1: rgba(98, 0, 234);
+        --g2: rgba(236, 64, 122);
+      }
+      .hero {
+        animation: background-pan 10s linear infinite;
+        background: linear-gradient(to right, var(--g1), var(--g2), var(--g1));
+        background-size: 200%;
+        height: 100vh;
+        overflow: hidden;
+        margin: 0px;
+        /* opacity: 0.5; */
+        position: relative;
+      }
+      @keyframes background-pan {
+        from {
+          background-position: 0% center;
+        }
+
+        to {
+          background-position: -200% center;
+        }
+      }
+
+      #tiles {
+        height: calc(100vh - 1px);
+        width: calc(100vw - 1px);
+        position: relative;
+
+        display: grid;
+        grid-template-columns: repeat(var(--columns), 1fr);
+        grid-template-rows: repeat(var(--rows), 1fr);
+      }
+
+      .tile {
+        position: relative;
+      }
+      .tile:before {
+        background-color: rgb(15, 15, 15);
+        content: "";
+        inset: 0.5px;
+        position: absolute;
+      }
+      .cta {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        background: transparent;
+        inset: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .cta form {
+        background-color: #0f172a;
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5em;
+        filter: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07))
+          drop-shadow(0 2px 2px rgb(0 0 0 / 0.06)); 
+        border-radius: 0.5rem;
+      }
+    </style>
   </head>
   <body>
     <!-- Start your project here-->
-    <div class="container">
+    <!-- <div class="container">
       <nav class="navbar navbar-light ">
-        <form class="container-fluid justify-content-start d-flex justify-content-end" >
-          <button  class="btn btn-outline-secondary me-2" type="button" onclick="loadHost()" >Create Server</button>
-          <button  class="btn btn-outline-secondary me-2" type="button" onclick="loadUser()">Join Server</button>
-        </form>
+        
       </nav>
-    </div> 
-    <div class='temp'></div>
+    </div>  -->
+    <div class="hero">
+      <div class="" id="tiles"></div>
+      <div class="cta">
+        <form class="">
+          <button
+            class="btn btn-outline-primary me-2"
+            type="button"
+            onclick="loadHost()"
+          >
+            Create Server
+          </button>
+          <button
+            class="btn btn-outline-primary me-2"
+            type="button"
+            onclick="loadUser()"
+          >
+            Join Server
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="temp"></div>
     <!-- End your project here-->
 
     <!-- MDB -->
     <script type="text/javascript" src="JS/mdb.min.js"></script>
     <!-- Custom scripts -->
-    <script type="text/javascript"></script> 
+    <script type="text/javascript"></script>
     <script>
-     function loadUser(){
-      window.location.href = '/loaduser'
-     }
-     function loadHost(){
-      window.location.href = '/loadhost'
-     }
+      function loadUser() {
+        window.location.href = "/loaduser";
+      }
+      function loadHost() {
+        window.location.href = "/loadhost";
+      }
+      const wrapper = document.getElementById("tiles");
+
+      let columns = 0,
+        rows = 0,
+        toggled = false;
+      const createTile = (index) => {
+        const tile = document.createElement("div");
+
+        tile.classList.add("tile");
+        return tile;
+      };
+
+      const createTiles = (quantity) => {
+        Array.from(Array(quantity)).map((tile, index) => {
+          wrapper.appendChild(createTile(index));
+        });
+      };
+
+      const createGrid = () => {
+        wrapper.innerHTML = "";
+
+        const size = document.body.clientWidth > 800 ? 70 : 50;
+
+        columns = Math.floor(document.body.clientWidth / size);
+        rows = Math.floor(document.body.clientHeight / size);
+
+        wrapper.style.setProperty("--columns", columns);
+        wrapper.style.setProperty("--rows", rows);
+
+        createTiles(columns * rows);
+      };
+
+      createGrid();
+
+      window.onresize = () => createGrid();
     </script>
   </body>
 </html>

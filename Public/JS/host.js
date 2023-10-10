@@ -101,8 +101,11 @@ document.getElementById("myInput").value = serverId;
 
 //get url from url search form
 function findVideoId(url) {
-  var len = url.length;
-  var result = url.split("=")[1];
+  //   var len = url.length;
+  var result = "";
+  if (url.includes("shorts")) result = url.split("/")[4];
+  else result = url.split("/")[3];
+  result = result.split("?")[0];
   return result;
 }
 videoURLForm.addEventListener("submit", (e) => {

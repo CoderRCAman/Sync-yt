@@ -135,7 +135,7 @@ io.on('connection', socket => {
 			io.emit('update-connected-user', users);
 		}
 	})
-	socket.on('disconnect', async () => {
+	socket.on('disconnect', async (data) => {
 		const username = user.get(socket.id);
 		const updatedUser = await Server.findOneAndUpdate({ username }, { serverId: '' })
 		const users = await Server.find({ 'serverId': data['serverId'] });

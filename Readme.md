@@ -1,2 +1,2 @@
 Site is hosted at:
-https://synch-yt.herokuapp.com/
+https://synchyt.onrender.com
